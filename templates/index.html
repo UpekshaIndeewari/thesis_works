@@ -81,7 +81,8 @@
             <h2>Similarity Results:</h2>
             <ul>
                 {% for result in similarity_results %}
-                <li>{{ result.0 }} and {{ result.1 }} - Similarity Score: {{ result.2 }}</li>
+                <li>{{ result }}</li>
+{#                <li>{{ result.0 }} and {{ result.1 }} - Similarity Score: {{ result.2 }}</li>#}
                 {% endfor %}
             </ul>
         {% endif %}

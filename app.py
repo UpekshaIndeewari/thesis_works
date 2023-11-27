@@ -1,22 +1,33 @@
-from flask import Flask, render_template, request
-from PyPDF2 import PdfReader
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords, words
-import re
-import enchant
-import yake
-import fitz 
 import json
-import string 
+import re
+import string
+import enchant
+import nltk
+import yake
+from PyPDF2 import PdfReader
+from flask import Flask, render_template, request
+from nltk.corpus import stopwords, words
+from nltk.tokenize import word_tokenize
+nltk.download('words')
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
 
-extracted_text = None
+
 extracted_phrases = []
-http_sections = "" 
+final_list = []
+http_sections = ""
 above_threshold = set()
+
+extracted_text = None
+eo4geo_bok_concepts = None
+lower_list = None
+re_stopword = None
+final_list = None
+similarity_results1 = None
+similarity_results = None
+words_corrected = None
 
 # Extraction of text from PDF
 def extract_text(pdf):
@@ -201,38 +212,26 @@ def Cosine_Similarity(list1, list2):
 
     # Assuming concept_names and YAKE_keyphrases are defined somewhere
     threshold = 0.7
-    
+
+    similarity_score_out = []
 
     for i, phrase1 in enumerate(list1):
         for j, phrase2 in enumerate(list2):
             score = similarity_matrix[i, j]
             if score > threshold:
                 print(f"Similarity between '{phrase1}' and '{phrase2}': {score}")
-                    
-    return phrase1
+                similarity_score_out.append(f"Similarity between '{phrase1}' and '{phrase2}': {score}")
+
+    return similarity_score_out
 
 
 @app.route('/', methods=['GET', 'POST'])
-
 def index():
     global extracted_text
     global extracted_phrases
     global http_sections
     global words_corrected
-
-    extracted_text1 = None
     http_sections = None
-    lowercased_words = None
-    abstract_and_references = None
-    removed_cases = None
-    removed_stopwords = None
-    removed_unicode = None
-    removed_numbers = None
-    removed_special = None
-    removed_repeat = None
-    removed_single_noenglish = None
-    removed_single = None
-    words_corrected = None
     
     
     
@@ -244,13 +243,13 @@ def index():
     global similarity_results
     
     data = None
-    eo4geo_bok_concepts = None
-    lower_list = None
-    re_stopword = None
-    final_list = None
-    similarity_results1 = None
-    similarity_results = None
-    
+    # eo4geo_bok_concepts = None
+    # lower_list = None
+    # re_stopword = None
+    # final_list = None
+    # similarity_results1 = None
+    # similarity_results = None
+
     if request.method == 'POST':
         if 'extract' in request.form:
             pdf_file = request.files['file']
@@ -303,7 +302,7 @@ def index():
         else:
             print('final list is empty')
 
-    return render_template('index.html', extracted_text=extracted_text, abstract_and_references=words_corrected, extracted_phrases=extracted_phrases, eo4geo_bok_concepts=final_list, similarity_results1=similarity_results)
+    return render_template('index.html', extracted_text=extracted_text, abstract_and_references=words_corrected, extracted_phrases=extracted_phrases, eo4geo_bok_concepts=final_list, similarity_results=similarity_results)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
