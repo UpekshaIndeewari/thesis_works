@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Text Processor</title>
+</head>
+<body>
+    <h1>PDF Text Processor</h1>
+
+    <form method="POST" enctype="multipart/form-data" action="/">
+        <label for="file">Choose a PDF file:</label>
+        <input type="file" name="file" id="file" accept=".pdf" aria-describedby="fileHelp">
+        <br><br>
+        <input type="submit" name="extract" value="Extract Text" title="Click to extract text">
+
+        {% if extracted_text %}
+            <h2>Extracted Text:</h2>
+            <p>{{ extracted_text }}</p>
+            <form method="POST" action="/">
+                <input type="submit" name="clean" value="Clean Text" title="Click to clean text">
+            </form>
+        {% endif %}
+
+        {% if abstract_and_references %}
+            <h2>Abstract and References (Post Cleaning):</h2>
+            <ul>
+                {% for word in abstract_and_references %}
+                    <li>{{ word }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="POST" action="/">
+            <label for="algorithm">Select an algorithm:</label>
+            <select name="algorithm" id="algorithm">
+                <option value="yake">YAKE</option>
+                <option value="patternrank">PatternRank</option>
+                <option value="keybert">KeyBERT</option>
+            </select>
+            <input type="submit" name="extract_keyphrases" value="Extract Key Phrases" title="Click to extract key phrases">
+        </form>
+
+        {% if extracted_phrases %}
+            <h2>Extracted Key Phrases:</h2>
+            <div>
+                <p>YAKE Extracted Phrases:</p>
+                <ul>
+                    {% for phrase in extracted_phrases %}
+                        <li>{{ phrase }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <form method="POST" action="/">
+            <input type="submit" name="extract_bok_concepts" value="Extract EO4GEO BOK Concepts" title="Click to extract EO4GEO BOK concepts">
+        </form>
+
+        {% if eo4geo_bok_concepts %}
+        <h2>EO4GEO BOK Concepts:</h2>
+        <ul>
+            {% for concept in eo4geo_bok_concepts %}
+                <li>{{ concept }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form method="POST" action="/">
+            <label for="similarity_measure">Select Similarity Measure:</label>
+            <select name="similarity_measure" id="similarity_measure">
+                <option value="cosine_similarity">Cosine Similarity</option>
+                <option value="jaro_winkler_similarity">Jaro-Winkler Similarity</option>
+                <option value="lsa">LSA</option>
+                <option value="word2vec">Word2Vec</option>
+            </select>
+            <input type="submit" name="calculate_similarity" value="Calculate Similarity" title="Click to calculate similarity">
+        </form>
+
+        {% if similarity_results %}
+            <h2>Similarity Results:</h2>
+            <ul>
+                {% for result in similarity_results %}
+                <li>{{ result.0 }} and {{ result.1 }} - Similarity Score: {{ result.2 }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </form>
+</body>
+</html>
