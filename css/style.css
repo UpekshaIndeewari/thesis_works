@@ -1,0 +1,38 @@
+.custom-font {
+   font-family: var(--font-base);
+   font-size: 24px;
+}
+
+.btn-primary {
+   font-family: var(--font-base);
+   font-weight: 600;
+   color: var(blue);
+}
+
+.navbar {
+   font-family: var(--font-base);
+   font-size: 16px;
+   font-weight: 500;
+}
+
+body {
+   font-family: var(--font-base);
+   font-size: 16px;
+   line-height: 1.6;
+}
+
+.navbar {
+   background-color: #27374D;
+}
+
+h1 {
+   font-family: 'Montserrat' !important;
+   font-size: 4rem !important;
+   line-height: 1.5 !important;
+}
+
+#hero {
+   background-position: top;
+   margin-top: -55px;
+
+}

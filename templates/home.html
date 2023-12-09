@@ -1,0 +1,99 @@
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="navbar_dark">
+      <nav class="navbar navbar-expand-lg" style="background-color: #27374d">
+        <div class="container">
+          <a class="navbar-brand" href="#" style="color: #f1f6f9">
+            <img
+              class="logo"
+              src="{{ url_for('static', filename='/images/image2.svg') }}"
+              alt=""
+              width="50"
+              height="40"
+            />
+          </a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  aria-current="page"
+                  style="color: #f1f6f9"
+                  href="{{ url_for('home') }}"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  style="color: #f1f6f9"
+                  href="{{ url_for('steps') }}"
+                  >Instructions</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  style="color: #f1f6f9"
+                  href="{{ url_for('index') }}"
+                  >Annotation</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div
+      id="hero"
+      class="col-12 min-vh-100 text-center align-items-center d-flex"
+      style="background-color: #f1eaff"
+    >
+      <div class="container">
+        <div class="col-12">
+          <img
+
+            src="{{ url_for('static', filename='/images/image.png') }}"
+            alt=""
+            width="100"
+            height="80"
+          />
+        </div>
+        <div class="col-12 py-5" style="font-weight: bold">
+          <h1>Welcome to GeoTagHub</h1>
+        </div>
+        <div class="col-12 py-3">
+          <h3>Who we are?</h3>
+        </div>
+        <div class="col-12">
+          <p>
+            We are a dedicated team passionate about leveraging Earth
+            Observation and geospatial technologies to unlock the full potential
+            of your PDF documents. We integrate EO4GEOBOK (Earth Observation for
+            Body of Knowladge) concepts into the annotation process, enhancing
+            the way you interact with GIS-based PDFs
+          </p>
+        </div>
+        <div>
+          <a href="{{ url_for('index') }}" class="btn btn-primary"
+            >Click Here to Annotation</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
